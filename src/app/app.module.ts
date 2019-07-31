@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
+import { httpInterceptors } from './http-interceptors';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BookListComponent } from './book-list/book-list.component';
@@ -24,7 +26,7 @@ import { SearchComponent } from './search/search.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [...httpInterceptors],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
