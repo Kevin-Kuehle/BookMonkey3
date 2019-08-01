@@ -1,3 +1,4 @@
+import { filter } from 'rxjs/operators';
 import { Thumbnail } from './../shared/book';
 import { Component, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -16,9 +17,15 @@ export class BookFormComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   submitForm() {
-    this.submitBook.emit(this.book);
+    const formValue = this.bookForm.value;
+    const authors = formValue.authors.filter( author => author );
+    const thumbnails = formValue.thumbnails.filter( thumbnail => thumbnail.url );
 
-    this.bookForm.reset();
+    const newBook: Book = {
+      ...formValue,
+      authors,
+      thumbnails
+    };
   }
 
   ngOnInit() {
@@ -47,6 +54,13 @@ export class BookFormComponent implements OnInit {
     return this.fb.array(
       values.map(t => this.fb.group(t))
     );
+  }
+
+  private addAuthorControl() {
+  this.authors.push(this.fb.control(''));
+  }
+  private addThumbnailControl() {
+    this.thumbnails.push(this.fb.group({ url: '', title: '' }));
   }
 
   get authors(): FormArray {
