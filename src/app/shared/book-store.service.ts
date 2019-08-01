@@ -51,6 +51,16 @@ export class BookStoreService {
     );
   }
 
+  create(book: Book): Observable<any> {
+    return this.http.post(
+      `${this.api}/book`,
+      book,
+      { responseType: 'text' }
+    ).pipe(
+      catchError(this.errorHandler)
+    );
+}
+
   remove(isbn: string): Observable<any> {
     return this.http.delete(
       `${this.api}/book/${isbn}`,
