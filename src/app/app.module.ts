@@ -15,6 +15,7 @@ import { CreateBookComponent } from './create-book/create-book.component';
 import { FormMessagesComponent } from './form-messages/form-messages.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditBookComponent } from './edit-book/edit-book.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SearchComponent,
     BookFormComponent,
     CreateBookComponent,
-    FormMessagesComponent
+    FormMessagesComponent,
+    EditBookComponent
   ],
   imports: [
     BrowserModule,

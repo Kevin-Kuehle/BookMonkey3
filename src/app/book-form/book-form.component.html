@@ -1,70 +1,43 @@
-<h1>Buchformular</h1>
-<form class="ui large form"
-      [formGroup]="myForm"
-      (ngSubmit)="submitForm()">
+<form  class="ui form" [formGroup]="bookForm" (ngSubmit)="submitForm()">
+  <label>Buchtitel</label>
+  <input formControlName="title">
+  <atbm-form-messages [control]="bookForm.get('title')" controlName="title"></atbm-form-messages>
 
-  <div class="field">
-    <label>Buchtitel</label>
-    <input formControlName="title">
-    <div *ngIf="errors.title" class="ui negative message">
-      {{ errors.title }}
+  <label>Untertitel</label>
+  <input formControllName="subtitle">
+
+  <label>ISBN</label>
+  <input formControlName="isbn">
+  <atbm-form-messages [control]="bookForm.get('isbn')" controlName="isbn"></atbm-form-messages>
+
+  <label>Erscheinungsdatum</label>
+  <input type="date" useValueAsDate formControlName="published">
+  <atbm-form-messages [control]="bookForm.get('published')" controlName="published"></atbm-form-messages>
+
+  <label>Autoren</label>
+  <button type="button" class="ui mini button" (click)="addAuthorControl()" > + Autor </button>
+  <div class="fields" formArrayName="authors">
+    <div class="sixteen wide field" *ngFor="let c of authors.controls; index as i">
+      <input placeholder="Autor" [formControlName]="i">
     </div>
   </div>
-  <div class="field">
-    <label>Untertitel</label>
-    <input formControlName="subtitle">
-  </div>
-  <div class="field" [class.disabled]="isUpdatingBook">
-    <label>ISBN-Nummer</label>
-    <input formControlName="isbn">
-    <div *ngIf="errors.isbn" class="ui negative message">
-      {{ errors.isbn }}
-    </div>
-  </div>
-  <div class="field">
-    <label>Erscheinungsdatum</label>
-    <input type="date"
-           useValueAsDate
-           formControlName="published">
-    <div *ngIf="errors.published" class="ui negative message">
-      {{ errors.published }}
-    </div>
-  </div>
-  <div class="field">
-    <label>Autoren</label>
-    <div class="fields" formArrayName="authors">
-      <div class="fifteen wide field" *ngFor="let control of authors.controls; index as i">
-        <input [formControlName]="i" placeholder="Autor {{i+1}}">
+  <atbm-form-messages [control]="bookForm.get('authors')" controlName="authors"></atbm-form-messages>
+
+
+  <label>Bilder</label>
+  <button type="button" class="ui mini button" (click)="addThumbnailControl()">+ Bild</button>
+  <!-- Error here -->
+  <div formArrayName="thumbnails">
+    <div class="fields" *ngFor="let c of thumbnails.controls; index as i" [formGroupName]="i">
+      <div class="nine wide field">
+        <input placeholder="URL" formControlName="url">
       </div>
-      <div class="one wide field">
-        <button (click)="addAuthorControl()" class="ui large button" type="button"> + </button>
-      </div>
-    </div>
-    <div *ngIf="errors.authors" class="ui negative message">
-      {{ errors.authors }}
-    </div>
-  </div>
-  <div class="field">
-    <label>Beschreibung</label>
-    <textarea formControlName="description" rows="3"></textarea>
-  </div>
-  <div class="field">
-    <label>Bilder</label>
-    <div formArrayName="thumbnails">
-      <div class="fields"
-          *ngFor="let control of thumbnails.controls; index as i; last as l"
-          [formGroupName]="i">
-        <div class="nine wide field">
-          <input formControlName="url" placeholder="http://bild{{i+1}}_Url">
-        </div>
-        <div class="six wide field">
-          <input formControlName="title" placeholder="Bild {{i+1}} Titel">
-        </div>
-        <div class="one wide field" *ngIf="l">
-          <button (click)="addThumbnailControl()" class="ui large button" type="button"> + </button>
-        </div>
+      <div class="seven wide field">
+        <input placeholder="Title" formControllName="title">
       </div>
     </div>
   </div>
-  <button type="submit" class="ui button" [disabled]="myForm.invalid">Speichern</button>
+
+
+  <button class="ui button" type="submit" [disabled]="bookForm.invalid">Speichern</button>
 </form>

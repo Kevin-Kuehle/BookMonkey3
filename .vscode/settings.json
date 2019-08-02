@@ -9,5 +9,8 @@
       "**/.DS_Store": true,
       "**/*.spec.ts": true
     },
-    "terminal.integrated.shell.windows": "C:\\Users\\Alfa\\Desktop\\ConEmuPack.190714\\ConEmu64.exe"
+    "terminal.integrated.shell.windows": "C:\\Users\\Alfa\\Desktop\\ConEmuPack.190714\\ConEmu64.exe",
+    "prettier.singleQuote": true,
+    "typescript.preferences.quoteStyle": "single",
+    "javascript.preferences.quoteStyle": "single"
 }

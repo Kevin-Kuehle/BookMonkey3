@@ -1,0 +1,8 @@
+<h1>Buch bearbeiten</h1>
+
+<atbm-book-form
+  *ngIf="book"
+  (submitBook)="updateBook($event)"
+  [book]="book"
+  [editing]="true"
+></atbm-book-form>
